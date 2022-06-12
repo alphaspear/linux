@@ -64,6 +64,7 @@ static int add_badrange(struct badrange *badrange, u64 addr, u64 length)
 	 * There is a chance this is a duplicate, check for those first.
 	 * This will be the common case as ARS_STATUS returns all known
 	 * errors in the SPA space, and we can't query it per region
+	 * do check for those first.
 	 */
 	list_for_each_entry(bre, &badrange->list, list)
 		if (bre->start == addr) {
@@ -77,7 +78,8 @@ static int add_badrange(struct badrange *badrange, u64 addr, u64 length)
 	/*
 	 * If not a duplicate or a simple length update, add the entry as is,
 	 * as any overlapping ranges will get resolved when the list is consumed
-	 * and converted to badblocks
+	 * and converted to badblocks.
+	 * 
 	 */
 	if (!bre_new)
 		return -ENOMEM;

@@ -99,6 +99,7 @@ static void nvme_loop_queue_response(struct nvmet_req *req)
 	 * survive any kind of queue freeze and often don't respond to
 	 * aborts.  We don't even bother to allocate a struct request
 	 * for them but rather special case them here.
+	 * 
 	 */
 	if (unlikely(nvme_is_aen_req(nvme_loop_queue_idx(queue),
 				     cqe->command_id))) {
